@@ -1,0 +1,22 @@
+{
+  "name": "threejs-vive-controller",
+  "homepage": "https://github.com/drGrove/threejs-vive-controller",
+  "authors": [
+    "Danny Grove <danny@drgrovellc.com>"
+  ],
+  "description": "A three.js vive controller library",
+  "main": "index.js",
+  "keywords": [
+    "three.js",
+    "webvr",
+    "vive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
