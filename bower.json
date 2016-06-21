@@ -5,7 +5,7 @@
     "Danny Grove <danny@drgrovellc.com>"
   ],
   "description": "A three.js vive controller library",
-  "main": "index.js",
+  "main": "threex.vivecontroller.js",
   "keywords": [
     "three.js",
     "webvr",
