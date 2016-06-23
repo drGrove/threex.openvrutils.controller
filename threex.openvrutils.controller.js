@@ -1,4 +1,7 @@
-THREEx.ViveController = function ( id ) {
+THREEx = THREEx || {};
+THREEx.OpenVRUtils = THREEx.OpenVRUtils || {};
+
+THREEx.OpenVRUtils.Controller = function ( id ) {
 	THREE.Object3D.call( this );
 	this.matrixAutoUpdate = false;
 	this.standingMatrix = new THREE.Matrix4();
@@ -6,6 +9,10 @@ THREEx.ViveController = function ( id ) {
   this.id = id;
 	var scope = this;
 
+  /**
+   * Gives the forward vector of the controller
+   * @returns {THREE.Vector3} the forward vector
+   */
   this.forward = function() {
     var matrix = new THREE.Matrix4();
     matrix.extractRotation(scope.matrix);
@@ -15,11 +22,31 @@ THREEx.ViveController = function ( id ) {
     return direction;
   };
 
+  /**
+   * Gives the x,y,z position of the controller in the world space
+   * @returns {THREE.Vector3} the x,y,z vector
+   */
   this.getPosition = function() {
     var position = new THREE.Vector3();
     scope.matrix.decompose(position, new THREE.Quaternion(), new THREE.Vector3());
     return position;
   };
+
+  /**
+   * Vibrates the controller for an amount of time
+   * @param {number} ms - number of milliseconds to vibrate for
+   * @throws {GamepadFeatureException}
+   */
+  this.vibrate = function(ms) {
+    if ("vibrate" in this.gamepad) {
+      this.gamepad.vibrate(ms);
+    } else {
+      throw new THREEx
+        .OpenVRUtils
+        .ERRORS
+        .GamepadFeatureException('Vibration is not enabled on this device');
+    }
+  }
 
 	function update() {
 		requestAnimationFrame(update);
@@ -72,7 +99,5 @@ THREEx.ViveController = function ( id ) {
 	update();
 };
 
-
-
-THREEx.ViveController.prototype = Object.create( THREE.Object3D.prototype );
-THREEx.ViveController.prototype.constructor = THREEx.ViveController;
+THREEx.OpenVRUtils.Controller.prototype = Object.create(THREE.Object3D.prototype);
+THREEx.OpenVRUtils.Controller.prototype.constructor = THREEx.OpenVRUtils.Controller;

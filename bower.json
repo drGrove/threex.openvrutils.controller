@@ -1,15 +1,17 @@
 {
-  "name": "threex.vivecontroller",
-  "homepage": "https://github.com/drGrove/threex.vivecontroller",
+  "name": "threex.openvrutils.controller",
+  "homepage": "https://github.com/drGrove/threex.openvrutils.controller",
   "authors": [
-    "Danny Grove <danny@drgrovellc.com>"
+    "Danny Grove <danny@drgrovellc.com>",
+    "Conner Brooks <connerbrooks@gmail.com>"
   ],
-  "description": "A three.js vive controller library",
-  "main": "threex.vivecontroller.js",
+  "description": "A three.js and openvr controller library",
+  "main": "threex.openvrutils.controller.js",
   "keywords": [
     "three.js",
     "webvr",
-    "vive"
+    "vive",
+    "openvr"
   ],
   "license": "MIT",
   "ignore": [
