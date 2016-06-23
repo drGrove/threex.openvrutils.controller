@@ -1,7 +1,6 @@
-# threejs-vive-controller
-Vive Controller for WebVR with Three.js
+# THREEx.OpenVRUtils.Controller
 
 ## Include in your project
 ```bash
-bower install --save threex.vivecontroller
+bower install --save threex.openvrutils.controller
 ```
