@@ -1,4 +1,4 @@
-# Threex.OpenVRUtils.Controller
+# THREEx.OpenVRUtils.Controller
 
 ## Include in your project
 ```bash
