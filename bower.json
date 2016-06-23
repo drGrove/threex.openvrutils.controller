@@ -20,5 +20,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "three.js": "threejs#*",
+    "threex.openvrutils": "drGrove/threex.openvrutils"
+  }
 }
