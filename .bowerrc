@@ -1,0 +1,6 @@
+{
+	"scripts": {
+    "preinstall": "npm install",
+    "postinstall": "./node_modules/.bin/babel -o threex.openvrutils.controller.js src"
+  }
+}
