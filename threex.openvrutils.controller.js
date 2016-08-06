@@ -1,5 +1,5 @@
 'use strict';
-THREEx = THREEx || {};
+var THREEx = THREEx || {};
 THREEx.OpenVRUtils = THREEx.OpenVRUtils || {};
 
 
