@@ -313,5 +313,4 @@ THREEx.OpenVRUtils.Controller.prototype.getPosition = function() {
   scope.matrix.decompose(position, new THREE.Quaternion(), new THREE.Vector3());
   return position;
 }
-};
 
