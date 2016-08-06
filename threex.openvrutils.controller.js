@@ -9,7 +9,7 @@ THREEx.OpenVRUtils = THREEx.OpenVRUtils || {};
  * @param {Number} id - the gamepad id
  * @param {String} controllerType - the controller type
  */
-var THREEx.OpenVRUtils.Controller = function(id, controllerType) {
+THREEx.OpenVRUtils.Controller = function(id, controllerType) {
   THREE.Object3D.call(this);
   /** @var {Number} id - The controller id */
   this.id = id;
