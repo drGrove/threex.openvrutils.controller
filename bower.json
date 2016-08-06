@@ -24,5 +24,9 @@
   "dependencies": {
     "three.js": "threejs#*",
     "threex.openvrutils": "drGrove/threex.openvrutils"
+  },
+  "scripts": {
+    "preinstall": "npm install",
+    "postinstall": "./node_modules/.bin/babel -o threex.openvrutils.controller.js src"
   }
 }
