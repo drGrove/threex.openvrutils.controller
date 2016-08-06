@@ -1,10 +1,10 @@
 'use strict';
-Threex = Threex || {};
-Threex.OpenVRUtils = Threex.OpenVRUtils || {};
+THREEx = THREEx || {};
+THREEx.OpenVRUtils = THREEx.OpenVRUtils || {};
 
 
 /**
- * Threex.OpenVRUtils.Controller
+ * THREEx.OpenVRUtils.Controller
  * @constructor
  * @param {Number} id - the gamepad id
  * @param {String} controllerType - the controller type
@@ -256,8 +256,8 @@ var THREEx.OpenVRUtils.Controller = function(id, controllerType) {
   update();
 }
 
-Threex.OpenVRUtils.Controller.constructor = Threex.OpenVRUtils.Controller;
-Threex.OpenVRUtils.Controller.prototype = THREE.Object3d.prototype;
+THREEx.OpenVRUtils.Controller.constructor = THREEx.OpenVRUtils.Controller;
+THREEx.OpenVRUtils.Controller.prototype = THREE.Object3d.prototype;
 
 /**
  * Get the mapping name by button id
@@ -265,7 +265,7 @@ Threex.OpenVRUtils.Controller.prototype = THREE.Object3d.prototype;
  * @returns {String} mapping
  * @throws {Error} Mapping not found
  */
-Threex.OpenVRUtils.Controller.prototype.getMappingForButton = function(buttonId) {
+THREEx.OpenVRUtils.Controller.prototype.getMappingForButton = function(buttonId) {
   for (let key in this.BUTTONS) {
     if (this.BUTTONS.hasOwnProperty(key)) {
       if (parseInt(this.BUTTONS[key], 10) === parseInt(buttonId, 10)) {
@@ -282,7 +282,7 @@ Threex.OpenVRUtils.Controller.prototype.getMappingForButton = function(buttonId)
  * @returns {Number} the button id
  * @throws {Error} Mapping not found
  */
-Threex.OpenVRUtils.Controller.prototype.getIdForMapping = function(mapping) {
+THREEx.OpenVRUtils.Controller.prototype.getIdForMapping = function(mapping) {
   mapping = mapping.toUpperCase();
   if (this.BUTTONS[mapping]) {
     return this.BUTTONS[mapping];
@@ -294,7 +294,7 @@ Threex.OpenVRUtils.Controller.prototype.getIdForMapping = function(mapping) {
  * Unit vector direction of controller
  * @returns {Three.Vector3}
  */
-Threex.OpenVRUtils.Controller.prototype.forward = function() {
+THREEx.OpenVRUtils.Controller.prototype.forward = function() {
   let matrix = new THREE.Matrix4();
   matrix.extractRotation( scope.matrix );
 
@@ -308,7 +308,7 @@ Threex.OpenVRUtils.Controller.prototype.forward = function() {
  * @TODO figure out how to actually update position
  * @returns {Three.Vector3}
  */
-Threex.OpenVRUtils.Controller.prototype.getPosition = function() {
+THREEx.OpenVRUtils.Controller.prototype.getPosition = function() {
   let position = new THREE.Vector3();
   scope.matrix.decompose(position, new THREE.Quaternion(), new THREE.Vector3());
   return position;
