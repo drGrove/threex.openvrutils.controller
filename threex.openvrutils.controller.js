@@ -11,8 +11,7 @@ THREEx.OpenVRUtils = THREEx.OpenVRUtils || {};
  */
 THREEx.OpenVRUtils.Controller = function(id, controllerType) {
   THREE.Object3D.call(this);
-  /** @var {Number} id - The controller id */
-  this.id = id;
+  var scope = this;
   this.buttons;
   this.gamepad;
   /**
@@ -28,10 +27,9 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
   this.matrixAutoUpdate = false;
   this.standingMatrix = new THREE.Matrix4();
   if (!this.controllerType) {
-    getControllerType();
-  } else {
-    setControllerMappings(this.controllerType);
+    this.controllerType = getControllerType();
   }
+  setControllerMappings(this.controllerType);
 
   /**
    * @var {Object} trackpad - The trackpad interface
@@ -116,10 +114,10 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
    * @private
    * @param {String} controllerType - The controllers type
    */
-  function setMappings(controllerType) {
+  function setControllerMappings(controllerType) {
     try {
-      this.BUTTONS = getButtonsForController(controllerType);
-      this.MAPPINGS = getMappingsForController(this.BUTTONS);
+      scope.BUTTONS = getButtonsForController(controllerType);
+      scope.MAPPINGS = getMappingsForController(scope.BUTTONS);
     } catch (e) {
       throw e;
     }
@@ -166,7 +164,7 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
    * binds to Window
    */
   function emit(eventName, detail) {
-    var customEvent = new CustomEvent(name, {detail: detail});
+    var customEvent = new CustomEvent(eventName, {detail: detail});
     window.dispatchEvent(customEvent);
   }
 
@@ -177,9 +175,9 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
    */
   function createButtonEventDetail(buttonId) {
     return {
-      controller_id: this.id,
+      controller_id: scope.id,
       button_id: buttonId,
-      button_mapping: this.getMappingForButton(buttonId)
+      button_mapping: scope.getMappingForButton(buttonId)
     };
   }
 
@@ -191,11 +189,11 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
    * @param {Object} gamepad - HTML5 Gamepad Instance
    */
   function setGamepadStates(gamepad) {
-    if (!this.buttons) {
-      this.buttons = JSON.parse(JSON.stringify(gamepad.buttons));
+    if (!scope.buttons) {
+      scope.buttons = JSON.parse(JSON.stringify(gamepad.buttons));
     }
     gamepad.buttons.map(function(button, idx) {
-      var buttonEventDetail = this.createButtonEventDetail(idx);
+      var buttonEventDetail = createButtonEventDetail(idx);
       if (button.pressed && !this.buttons[idx].isHeld) {
         this.buttons[idx].isHeld = true;
         emit('gamepadButtonPressed', buttonEventDetail)
@@ -233,7 +231,7 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
           emit('gamepadButtonUntouched', buttonEventDetail);
         }
       }
-    }, this);
+    }, scope);
   }
 
   function update() {
@@ -248,7 +246,7 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
       scope.matrix.multiplyMatrices( scope.standingMatrix, scope.matrix );
       scope.matrixWorldNeedsUpdate = true;
       scope.visible = true;
-      scope.setGamepadStates(gamepad);
+      setGamepadStates(gamepad);
     } else {
       scope.visible = false;
     }
@@ -257,7 +255,7 @@ THREEx.OpenVRUtils.Controller = function(id, controllerType) {
 }
 
 THREEx.OpenVRUtils.Controller.constructor = THREEx.OpenVRUtils.Controller;
-THREEx.OpenVRUtils.Controller.prototype = THREE.Object3d.prototype;
+THREEx.OpenVRUtils.Controller.prototype = THREE.Object3D.prototype;
 
 /**
  * Get the mapping name by button id
@@ -296,7 +294,7 @@ THREEx.OpenVRUtils.Controller.prototype.getIdForMapping = function(mapping) {
  */
 THREEx.OpenVRUtils.Controller.prototype.forward = function() {
   let matrix = new THREE.Matrix4();
-  matrix.extractRotation( scope.matrix );
+  matrix.extractRotation( this.matrix );
 
   let direction = new THREE.Vector3( 0, 0, -1 );
   direction.applyMatrix4(matrix);
@@ -310,7 +308,7 @@ THREEx.OpenVRUtils.Controller.prototype.forward = function() {
  */
 THREEx.OpenVRUtils.Controller.prototype.getPosition = function() {
   let position = new THREE.Vector3();
-  scope.matrix.decompose(position, new THREE.Quaternion(), new THREE.Vector3());
+  this.matrix.decompose(position, new THREE.Quaternion(), new THREE.Vector3());
   return position;
 }
 
